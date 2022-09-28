@@ -1,6 +1,6 @@
 package intlbank;
 
-public class Account {
+public abstract class Account {
 
 	private int accNumber;
 	private double balance;
@@ -24,12 +24,19 @@ public class Account {
 		this.balance += amount;
 	}
 
-	public void withdrawl(double amount) {
-		if (amount > this.balance) {
-			System.out.println("Invalid amount");
-			return;
+	public boolean withdrawal(double amount) {
+		if (amount <= this.balance) {
+			this.balance -= amount;
+			return true;
 		}
-		this.balance -= amount;
+		System.out.println("Invalid amount");
+		return false;
+	}
+
+	public boolean transfer(double amount, Account accTo) {
+		this.withdrawal(amount);
+		accTo.deposit(amount);
+		return true;
 	}
 
 	public int getAccNumber() {
