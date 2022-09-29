@@ -34,8 +34,10 @@ public abstract class Account {
 	}
 
 	public boolean transfer(double amount, Account accTo) {
-		this.withdrawal(amount);
-		accTo.deposit(amount);
+		boolean worked = this.withdrawal(amount);
+		if (worked) {
+			accTo.deposit(amount);
+		}
 		return true;
 	}
 
